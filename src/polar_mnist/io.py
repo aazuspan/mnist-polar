@@ -78,13 +78,13 @@ class _MNISTProjectorDataset(Dataset):
         return (self.transform(self.images[idx]), int(self.labels[idx]))
 
 
-def get_train_loader(batch_size: int, shuffle: bool = True) -> DataLoader:
+def get_train_loader(batch_size: int, shuffle: bool = True, **kwargs) -> DataLoader:
     train_images, train_labels, _, _ = load_mnist()
     dataset = _MNISTProjectorDataset(train_images, train_labels)
-    return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle)
+    return DataLoader(dataset, batch_size=batch_size, shuffle=shuffle, **kwargs)
 
 
-def get_test_loader(batch_size: int) -> DataLoader:
+def get_val_loader(batch_size: int, **kwargs) -> DataLoader:
     _, _, test_images, test_labels = load_mnist()
     dataset = _MNISTProjectorDataset(test_images, test_labels)
-    return DataLoader(dataset, batch_size=batch_size, shuffle=False)
+    return DataLoader(dataset, batch_size=batch_size, shuffle=False, **kwargs)
